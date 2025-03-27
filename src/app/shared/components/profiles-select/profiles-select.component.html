@@ -1,0 +1,12 @@
+<ng-container *ngIf="formControl">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label> Profiles </mat-label>
+    <mat-select [formControl]="formControl">
+      <mat-option [value]="null">Select a profile</mat-option>
+
+      <ng-container *ngFor="let item of profiles$ | async">
+        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+</ng-container>

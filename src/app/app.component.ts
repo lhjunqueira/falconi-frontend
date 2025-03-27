@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { SidenavComponent } from './shared/components/sidenav/sidenav.component';
+import { Store } from '@ngrx/store';
+import { loadProfiles } from './shared/stores/profiles.store';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [SidenavComponent],
 })
-export class AppComponent {
-  title = 'falconi-frontend';
+export class AppComponent implements OnInit {
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(loadProfiles());
+  }
 }

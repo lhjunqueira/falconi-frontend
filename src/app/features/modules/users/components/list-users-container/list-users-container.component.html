@@ -1,3 +1,85 @@
-<p>
-  list-users-container works!
-</p>
+<div class="list-users-container">
+  <div class="upper-page-container">
+    <form [formGroup]="form" class="filter-form-container">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label> Search user </mat-label>
+        <input matInput [formControl]="form.controls.search" />
+      </mat-form-field>
+
+      <profiles-select [formControl]="form.controls.profileId" />
+    </form>
+
+    <div class="buttons-container">
+      <button mat-flat-button color="primary" (click)="createUser()">
+        <mat-icon>add</mat-icon>
+        Add User
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="users$ | async as users">
+    <mat-card class="custom-card">
+      <mat-paginator
+        [pageSize]="10"
+        [length]="totalUsers$ | async"
+        (page)="onPageChange($event)"
+      />
+
+      <table mat-table [dataSource]="users">
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>First Name</th>
+          <td mat-cell *matCellDef="let user">{{ user.firstName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>Last Name</th>
+          <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>E-mail</th>
+          <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let user">
+            <mat-slide-toggle
+              [checked]="user.isActive"
+              (change)="toggleUserStatus(user, $event.checked)"
+              color="primary"
+            >
+            </mat-slide-toggle>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profile">
+          <th mat-header-cell *matHeaderCellDef>Profile</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user.profileId | profile | async }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-icon-button color="primary" (click)="editUser(user)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" (click)="deleteUser(user)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <thead>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        </thead>
+        <tbody>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </tbody>
+      </table>
+    </mat-card>
+  </ng-container>
+</div>

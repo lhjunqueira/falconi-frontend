@@ -1,0 +1,90 @@
+<ng-container *ngIf="formGroup">
+  <div mat-dialog-title class="modal-header">
+    <span> Modal Create/Update User </span>
+
+    <button mat-icon-button (click)="cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="formGroup" class="custom-grid">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>First Name</mat-label>
+
+        <input matInput [formControl]="formGroup.controls.firstName" />
+
+        <mat-error *ngIf="formGroup.controls.firstName.hasError('required')">
+          First Name is required
+        </mat-error>
+        <mat-error *ngIf="formGroup.controls.firstName.hasError('minlength')">
+          First Name must be at least
+          {{
+            formGroup.controls.firstName.getError("minlength").requiredLength
+          }}
+        </mat-error>
+        <mat-error *ngIf="formGroup.controls.firstName.hasError('maxlength')">
+          First Name must be at most
+          {{
+            formGroup.controls.firstName.getError("maxlength").requiredLength
+          }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Last Name</mat-label>
+
+        <input matInput [formControl]="formGroup.controls.lastName" />
+
+        <mat-error *ngIf="formGroup.controls.lastName.hasError('required')">
+          Last Name is required
+        </mat-error>
+        <mat-error *ngIf="formGroup.controls.lastName.hasError('minlength')">
+          Last Name must be at least
+          {{ formGroup.controls.lastName.getError("minlength").requiredLength }}
+        </mat-error>
+        <mat-error *ngIf="formGroup.controls.lastName.hasError('maxlength')">
+          Last Name must be at most
+          {{ formGroup.controls.lastName.getError("maxlength").requiredLength }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Email</mat-label>
+
+        <input matInput type="email" [formControl]="formGroup.controls.email" />
+
+        <mat-error *ngIf="formGroup.controls.email.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="formGroup.controls.email.hasError('email')">
+          Invalid email format
+        </mat-error>
+        <mat-error *ngIf="formGroup.controls.email.hasError('minlength')">
+          Email must be at least
+          {{ formGroup.controls.email.getError("minlength").requiredLength }}
+        </mat-error>
+        <mat-error *ngIf="formGroup.controls.email.hasError('maxlength')">
+          Email must be at most
+          {{ formGroup.controls.email.getError("maxlength").requiredLength }}
+        </mat-error>
+      </mat-form-field>
+
+      <profiles-select
+        style="width: 100%"
+        [formControl]="formGroup.controls.profileId"
+      />
+
+      <div class="modal-header">
+        <span>Is Active</span>
+        <mat-slide-toggle [formControl]="formGroup.controls.isActive">
+        </mat-slide-toggle>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button type="submit" (click)="save()">Save</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+  </mat-dialog-actions>
+</ng-container>
