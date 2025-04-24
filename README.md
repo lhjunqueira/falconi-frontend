@@ -1,7 +1,7 @@
 # Projeto Angular com Docker
 
 ## 📌 Visão Geral
-Este projeto é uma aplicação frontend desenvolvida em **Angular v17**, configurada para rodar dentro de um contêiner **Docker**. Ele utiliza **Angular Material** para uma interface de usuário moderna, além de **NgRx** para o gerenciamento eficiente de estado. Este projeto foi desenvolvido como parte de um desafio técnico proposto pela **Falconi**, integrando o processo de contratação.
+Este projeto é uma aplicação frontend desenvolvida em **Angular v17**, configurada para rodar dentro de um contêiner **Docker**. Ele utiliza **Angular Material** para uma interface de usuário moderna, além de **NgRx** para o gerenciamento eficiente de estado. Este projeto foi desenvolvido como parte de um desafio técnico proposto.
 
 ## 🛠️ Tecnologias Utilizadas
 - **Angular v17**
